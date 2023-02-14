@@ -1,0 +1,44 @@
+.showbooks {
+  margin-top: 80px;
+  align-items: center;
+  text-align: center;
+}
+
+body {
+  background-color: azure;
+}
+
+.table {
+  margin-left: 20%;
+}
+
+.body {
+  background-color: antiquewhite;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  row-gap: 24px;
+  column-gap: 24px;
+  margin-right: 24px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 10px;
+}
+.head {
+  background-color: antiquewhite;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  row-gap: 24px;
+  column-gap: 24px;
+  margin-right: 24px;
+  margin-top: 24px;
+  padding: 10px;
+}
+
+.delete-btn {
+  margin-left: 10px;
+}
+
+.add-book {
+  margin-top: 10px;
+  height: 32px;
+}
