@@ -33,7 +33,8 @@ import com.vijay.ebook.entity.Category;
 import com.vijay.ebook.repository.CategoryRepository;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
+//ExtendWith is alter native to create and mock object
+//@ExtendWith(MockitoExtension.class)
 public class CategoryServiceImplTest {
 	
 	@Mock

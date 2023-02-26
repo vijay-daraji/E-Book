@@ -8,6 +8,11 @@ public class CategoryDto {
 	@NotNull
 	private String categoryName;
 	
+	public CategoryDto(Long id, @NotNull String categoryName) {
+		super();
+		this.id = id;
+		this.categoryName = categoryName;
+	}
 	public Long getId() {
 		return id;
 	}
