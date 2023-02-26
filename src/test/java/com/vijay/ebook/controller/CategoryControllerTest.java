@@ -43,6 +43,7 @@ public class CategoryControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
+	//for update test same as create test
 	@Test
 	void createCategoryTest() throws Exception {
 		CategoryDto categoryDto = new CategoryDto(101L, "category1");
