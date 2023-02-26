@@ -13,6 +13,9 @@ public class CategoryDto {
 		this.id = id;
 		this.categoryName = categoryName;
 	}
+	public CategoryDto() {
+		
+	}
 	public Long getId() {
 		return id;
 	}
