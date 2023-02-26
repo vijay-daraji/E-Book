@@ -82,5 +82,15 @@ public class CategoryControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.categoryName", is(categoryDto.getCategoryName())));
 	}
+	
+	@Test
+	void deleteCategory() throws Exception {
+		CategoryDto categoryDto = new CategoryDto(101L, "category1");
+		
+		Mockito.when(CategoryService.deleteCategory(101L)).thenReturn(new ResponseEntity<>("deleted", HttpStatus.OK));
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("/categories/{id}", 101L))
+			.andExpect(status().isOk());
+	}
 
 }
