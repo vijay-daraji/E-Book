@@ -12,12 +12,16 @@ import static org.mockito.Mockito.verify;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.vijay.ebook.entity.Category;
 import com.vijay.ebook.repository.CategoryRepository;
@@ -28,12 +32,13 @@ public class CategoryServiceImplTest {
 	@Mock
 	private CategoryRepository categoryRepository;
 	
+	@InjectMocks
 	private CategoryServiceImpl categoryServiceImpl;
 	
-	@BeforeEach
-	void setUp() {
-		this.categoryServiceImpl = new CategoryServiceImpl(this.categoryRepository);
-	}
+//	@BeforeEach
+//	void setUp() {
+//		this.categoryServiceImpl = new CategoryServiceImpl(this.categoryRepository);
+//	}
 	
 	@Test
 	void getAllCategory() {

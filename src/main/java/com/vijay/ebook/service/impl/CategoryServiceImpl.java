@@ -23,10 +23,10 @@ public class CategoryServiceImpl implements CategoryService{
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public CategoryServiceImpl(CategoryRepository categoryRepository) {
-		super();
-		this.categoryRepository = categoryRepository;
-	}
+//	public CategoryServiceImpl(CategoryRepository categoryRepository) {
+//		super();
+//		this.categoryRepository = categoryRepository;
+//	}
 
 	@Override
 	public ResponseEntity<CategoryDto> addCategory(CategoryDto categoryDto) {
