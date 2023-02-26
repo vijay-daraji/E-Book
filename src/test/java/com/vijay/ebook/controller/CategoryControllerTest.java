@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vijay.ebook.dto.model.CategoryDto;
@@ -19,6 +20,9 @@ import com.vijay.ebook.service.BookService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -51,6 +55,21 @@ public class CategoryControllerTest {
 		.andExpect(status().isCreated())
 		.andExpect(jsonPath("$.categoryName", is(categoryDto.getCategoryName())));
 		
+	}
+	
+	@Test
+	void getAllCategory() throws Exception {
+		CategoryDto categoryDto1 = new CategoryDto(101L, "category1");
+		CategoryDto categoryDto2 = new CategoryDto(102L, "category2");
+		List<CategoryDto> categoryDtos = new ArrayList<>();
+		categoryDtos.add(categoryDto1);
+		categoryDtos.add(categoryDto2);
+		
+		Mockito.when(CategoryService.getAllCategory()).thenReturn(new ResponseEntity<>(categoryDtos, HttpStatus.OK));
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/categories"))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.size()", is(categoryDtos.size())));
 	}
 
 }
