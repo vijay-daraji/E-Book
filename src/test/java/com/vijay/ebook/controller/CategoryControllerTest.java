@@ -71,5 +71,16 @@ public class CategoryControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.size()", is(categoryDtos.size())));
 	}
+	
+	@Test
+	void getCategory() throws Exception {
+		CategoryDto categoryDto = new CategoryDto(101L, "category1");
+		
+		Mockito.when(CategoryService.getCategory("category1")).thenReturn(new ResponseEntity<>(categoryDto, HttpStatus.OK));
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/categories/{categoryName}", "category1"))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.categoryName", is(categoryDto.getCategoryName())));
+	}
 
 }
