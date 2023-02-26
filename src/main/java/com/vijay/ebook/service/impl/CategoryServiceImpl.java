@@ -28,6 +28,12 @@ public class CategoryServiceImpl implements CategoryService{
 //		this.categoryRepository = categoryRepository;
 //	}
 
+	public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+		super();
+		this.categoryRepository = categoryRepository;
+		this.modelMapper = modelMapper;
+	}
+
 	@Override
 	public ResponseEntity<CategoryDto> addCategory(CategoryDto categoryDto) {
 		Category categoryEntity = modelMapper.map(categoryDto, Category.class);
@@ -50,6 +56,9 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public ResponseEntity<CategoryDto> getCategory(String categoryName) {
 		Category category = categoryRepository.findByCategoryName(categoryName);
+		if(category==null) {
+			throw new RuntimeException("category not found");
+		}
 		return new ResponseEntity<>(modelMapper.map(category, CategoryDto.class), HttpStatus.OK);
 	}
 

@@ -2,6 +2,8 @@ package com.vijay.ebook.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 //public class CategoryServiceImplTest {
 //	
 //	
@@ -19,13 +21,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
+import com.vijay.ebook.dto.model.CategoryDto;
 import com.vijay.ebook.entity.Category;
 import com.vijay.ebook.repository.CategoryRepository;
 
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class CategoryServiceImplTest {
 	
@@ -34,6 +41,14 @@ public class CategoryServiceImplTest {
 	
 	@InjectMocks
 	private CategoryServiceImpl categoryServiceImpl;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@BeforeEach
+	void setUp() {
+		this.categoryServiceImpl = new CategoryServiceImpl(this.categoryRepository, this.modelMapper);
+	}
 	
 //	@BeforeEach
 //	void setUp() {
@@ -53,6 +68,22 @@ public class CategoryServiceImplTest {
 		assertEquals(2, categoryServiceImpl.getAllCategory().getBody().size());
 		
 //		verify(categoryRepository).findAll();
+	}
+	
+	@Test
+	void getCategory() {
+		Category category1 = new Category(101L, "category1",null);
+		Mockito.when(categoryRepository.findByCategoryName("category1")).thenReturn(category1);
+		
+		CategoryDto categoryDto = categoryServiceImpl.getCategory("category1").getBody();
+		assertEquals( "category1",categoryDto.getCategoryName());
+	}
+	
+	@Test
+	void getCategory__NotFound() {
+		Mockito.when(categoryRepository.findByCategoryName("category1")).thenReturn(null);
+		
+		assertThrows(RuntimeException.class, ()-> categoryServiceImpl.getCategory("category1"));
 	}
 
 }
